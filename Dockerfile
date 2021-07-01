@@ -48,7 +48,7 @@ WORKDIR /usr/src/app
 ENV \
   TRADE_DIR=/usr/src/trades \
   TRADE_COMPLETED_DIR=/usr/src/complete_trades \
-  CONF_DIR=/usr/src/configs
+  CONF_DIR=/usr/src/configs \
   LOGS_DIR=/usr/src/logs
 
 COPY requirements.txt /usr/src/app/
