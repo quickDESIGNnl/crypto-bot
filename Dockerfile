@@ -1,5 +1,5 @@
 #########################
-### build environment ###
+### environment ###
 #########################
 
 # base image
@@ -39,9 +39,10 @@ RUN ng build --prod --output-path app_docker
 ### production ###
 ##################
 FROM python:3.7-slim
-MAINTAINER Igor Iliunin <ilunin.igor@gmail.com>
+LABEL maintainer="quickDESIGN"
 
 RUN mkdir -p /usr/src/app
+RUN mkdir /usr/src/logs
 
 WORKDIR /usr/src/app
 
@@ -63,8 +64,9 @@ RUN \
 VOLUME ["/usr/src/trades", "/usr/src/configs"]
 
 COPY . /usr/src/app
-#COPY --from=builder /usr/src/app/dist/admin /usr/src/app/API/templates
-COPY --from=bot-fe /usr/src/app/release /usr/src/app/API/templates
+# COPY --from=builder /usr/src/app/dist/admin /usr/src/app/API/templates
+# COPY --from=bot-fe /usr/src/app/release /usr/src/app/API/templates
+COPY --from=builder /usr/src/app/app_docker /usr/src/app/API/templates
 
 ENV TZ=America/New_York
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
